@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "denoland.vscode-deno",
+        "EditorConfig.EditorConfig",
+        "codezombiech.gitignore",
+        "eamodio.gitlens",
+        "usernamehw.errorlens"
+    ]
+}
