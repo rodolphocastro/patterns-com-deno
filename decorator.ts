@@ -84,14 +84,13 @@ console.log(cesar.nome);
 console.log(cesar instanceof PessoaComLogica);
 
 const canDrink = ({ idade }: Pessoa): boolean => {
-    return idade >= 21;
-}
+  return idade >= 21;
+};
 
 const canDrinkV2 = (p: Pessoa): boolean => {
-    const {idade} = p;
-    return idade >= 21;
-}
+  const { idade } = p;
+  return idade >= 21;
+};
 
-
-console.log(canDrink(guilherme))
-console.log(canDrinkV2(cesar))
+console.log(canDrink(guilherme));
+console.log(canDrinkV2(cesar));
