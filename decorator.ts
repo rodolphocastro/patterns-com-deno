@@ -82,3 +82,16 @@ console.log(cesar);
 console.log(cesar.nome);
 // cesar.idade = 20 <-- Resultará em error (vide o setter do v2)
 console.log(cesar instanceof PessoaComLogica);
+
+const canDrink = ({ idade }: Pessoa): boolean => {
+    return idade >= 21;
+}
+
+const canDrinkV2 = (p: Pessoa): boolean => {
+    const {idade} = p;
+    return idade >= 21;
+}
+
+
+console.log(canDrink(guilherme))
+console.log(canDrinkV2(cesar))
