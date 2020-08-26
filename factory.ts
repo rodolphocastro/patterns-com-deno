@@ -1,13 +1,9 @@
+import { Pessoa } from "./Pessoa.ts";
+
 // Factory é uma maneira de separar a lógica de criação de objetos
 // da classe em si.
 // Muito útil para resolver dependências e, caso necessário, realizar validações a tempo de criação.
 // Por exp: Uma Factory de pessoa poderia verificar se idade >= 0, mantendo essa lógica fora do Model.
-
-interface Pessoa {
-  nome: string;
-  idade: number;
-  biografia?: string;
-}
 
 class PessoaComplexa implements Pessoa {
   nome: string = "";

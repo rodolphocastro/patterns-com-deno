@@ -1,12 +1,8 @@
+import { Pessoa } from "./Pessoa.ts";
+
 // Decorator é um pattern para encapsular um Objeto/Classe, mantendo os métodos e propriedades esperados
 // porém adicionando alguma lógica "a mais".
 // Por exemplo: Validação de dados (setters), Logging
-
-interface Pessoa {
-  nome: string;
-  idade: number;
-  biografia?: string;
-}
 
 class PessoaComLogica implements Pessoa {
   nome: string;
