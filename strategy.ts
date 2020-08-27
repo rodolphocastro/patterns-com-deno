@@ -18,40 +18,31 @@ interface PessoaComNascimento extends Pessoa {
  * Descreve a interface para o cálculo da idade de um pessoa.
  */
 abstract class PessoaIdadeStrategy {
-  constructor(protected readonly refPessoa: PessoaComNascimento) {}
-  abstract getIdade(): number;
-
-  protected getYearDiff(): number {
-    return new Date().getFullYear() -
-      this.refPessoa.dataNascimento.getFullYear();
+  abstract getIdade(p: PessoaComNascimento): number;
+  protected getYearDiff(rhs: Date, lhs: Date = new Date()): number {
+    return lhs.getFullYear() - rhs.getFullYear();
   }
 }
 
 class PessoaComplexaComIdade implements PessoaComNascimento {
   nome: string = "";
   get idade(): number {
-    return this.idadeCalculator?.getIdade() ?? 0;
+    return this.idadeCalculator?.getIdade(this);
   }
   dataNascimento: Date = new Date();
   biografia?: string;
-  idadeCalculator: PessoaIdadeStrategy = new PessoaNormalIdadeStrategy(this);
+  idadeCalculator: PessoaIdadeStrategy = new PessoaNormalIdadeStrategy();
 }
 
 class ProgramadorIdadeStrategy extends PessoaIdadeStrategy {
-  constructor(p: PessoaComNascimento) {
-    super(p);
-  }
-  getIdade(): number {
-    return this.getYearDiff() - 1;
+  getIdade(p: PessoaComNascimento): number {
+    return this.getYearDiff(p.dataNascimento) - 1;
   }
 }
 
 class PessoaNormalIdadeStrategy extends PessoaIdadeStrategy {
-  constructor(p: PessoaComNascimento) {
-    super(p);
-  }
-  getIdade(): number {
-    return this.getYearDiff();
+  getIdade(p: PessoaComNascimento): number {
+    return this.getYearDiff(p.dataNascimento);
   }
 }
 
@@ -59,5 +50,5 @@ const guilherme = new PessoaComplexaComIdade();
 guilherme.nome = "José Guilherme";
 guilherme.dataNascimento = new Date(1991, 2, 12);
 console.log(guilherme.idade);
-guilherme.idadeCalculator = new ProgramadorIdadeStrategy(guilherme);
+guilherme.idadeCalculator = new ProgramadorIdadeStrategy();
 console.log(guilherme.idade);
