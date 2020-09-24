@@ -3,7 +3,12 @@
 
 import { Pessoa } from "./Pessoa.ts";
 
-abstract class NivelEducacaoPessoa {
+interface Educavel {
+  Formar(): void;
+  Esquecer(): void;
+}
+
+abstract class NivelEducacaoPessoa implements Educavel {
   constructor(
     protected readonly p: PessoaEducada,
     public readonly desc: string,
@@ -77,14 +82,14 @@ class EducadoOverrated extends NivelEducacaoPessoa {
   }
 }
 
-class PessoaEducada implements Pessoa {
-    //private educacao = 1;
-    // 1 -> Fundamental
-    // 2 -> Medio
-    // 3 -> Overrated
-    // educacao++
-    // educacao--
-    // switch(educacao) => "Fundamental" | "Medio" | "Overrated" | "Aposentado"
+class PessoaEducada implements Pessoa, Educavel {
+  //private educacao = 1;
+  // 1 -> Fundamental
+  // 2 -> Medio
+  // 3 -> Overrated
+  // educacao++
+  // educacao--
+  // switch(educacao) => "Fundamental" | "Medio" | "Overrated" | "Aposentado"
   private nivelEducacao = new NaoEducado(this);
 
   constructor(
@@ -98,12 +103,19 @@ class PessoaEducada implements Pessoa {
     this.nivelEducacao = n;
   }
 
-  estudar() {
+  private estudar() {
     this.nivelEducacao.Formar();
   }
 
-  aloprar() {
+  private aloprar() {
     this.nivelEducacao.Esquecer();
+  }
+
+  Formar() {
+    this.estudar();
+  }
+  Esquecer() {
+    this.aloprar();
   }
 
   get nomeFormacao() {
@@ -111,20 +123,33 @@ class PessoaEducada implements Pessoa {
   }
 }
 
-const guilherme = new PessoaEducada(
+const guilherme: Educavel = new PessoaEducada(
   "José Guilherme",
   29,
   "Um cara que quer se formar e esquecer",
 );
 console.dir(guilherme);
-guilherme.estudar();
+guilherme.Formar();
 console.dir(guilherme);
-guilherme.aloprar();
+guilherme.Esquecer();
 console.dir(guilherme);
-guilherme.estudar();
-guilherme.estudar();
-guilherme.estudar();
+guilherme.Formar();
+guilherme.Formar();
+guilherme.Formar();
 console.dir(guilherme);
-guilherme.estudar();
-guilherme.estudar();
+guilherme.Formar();
+guilherme.Formar();
+console.dir(guilherme);
+
+const educa = (e: Educavel) => e.Formar();
+educa(
+  {
+    Formar: () => console.log("me formei"),
+    Esquecer: () => console.log("esqueci, doh"),
+  },
+);
+educa(guilherme);
+educa(guilherme);
+educa(guilherme);
+educa(guilherme);
 console.dir(guilherme);
